@@ -10,10 +10,6 @@ const getAllPositions = async (req, res) => {
     }
 };
 
-
-module.exports = {
-    getAllPositions,
-};
 const createPosition = async (req,res) =>{
     try {
 
@@ -45,5 +41,6 @@ const getPositionById = async (req,res) =>{
 
 module.exports = {
     createPosition,
-    getPositionById
+    getPositionById,
+    getAllPositions
 };
