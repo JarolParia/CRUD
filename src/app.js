@@ -2,6 +2,7 @@ const express = require('express');
 const { Sequelize } = require('sequelize');  // Asegúrate de importar Sequelize correctamente
 const dbconfig = require('./config/config');
 const positionRoutes = require('./routes/positionRoutes'); // Asegúrate de que la ruta sea correcta
+const userRoutes = require('./routes/userRoutes'); // Asegúrate de que la ruta sea correcta
 
 // Crea una nueva instancia de Sequelize utilizando la configuración
 const sequelize = new Sequelize(
@@ -21,6 +22,8 @@ const port =8080;
 app.use(express.json());
 
 app.use('/api/positions', positionRoutes);
-
+app.use('/api/users', userRoutes);
 
 module.exports = { app, sequelize };
+
+

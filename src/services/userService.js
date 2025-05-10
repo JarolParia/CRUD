@@ -7,7 +7,7 @@ const { hashPassword } = require('../utils/bcryptHelper');
 const createUser = async (data) => {
     try {
         const hashedPassword = await hashPassword(data.password);
-        const user = User.Create ({...data,password: hashedPassword});
+        const user = User.create({...data,password: hashedPassword});
         return user;
     }catch (error) {
         throw new Error('Error creating user:' + error.message);

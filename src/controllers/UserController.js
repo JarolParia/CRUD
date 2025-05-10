@@ -9,7 +9,6 @@ const createUser = async (req,res) =>{
     }
 };
 
-
 const getUserById = async (req,res) =>{
     try{
         const user = await userService.getUserById(req.params.id);
@@ -20,4 +19,10 @@ const getUserById = async (req,res) =>{
         }
         res.status(500).json({ message: error.message });
     }
+};
+
+
+module.exports = {
+    createUser,
+    getUserById
 };

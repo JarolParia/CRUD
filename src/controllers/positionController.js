@@ -24,8 +24,6 @@ const createPosition = async (req,res) =>{
     }
 };
 
-
-
 const getPositionById = async (req,res) =>{
     try{
         const position = await positionService.getPositionById(req.params.id);
