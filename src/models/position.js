@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       const { User } = models;
 
       Position.hasMany(User,{
-        foreignKey: 'PositionId',
+        foreignKey: 'positionId',
         as: 'users'
       });
     }
