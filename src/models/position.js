@@ -1,0 +1,40 @@
+'use strict';
+const { Model } = require('sequelize');
+
+
+
+module.exports = (sequelize, DataTypes) => {
+  class Position extends Model {
+    static associate(models) {
+      Position.hasMany(user,{
+        foreignKey: 'PositionId',
+        as: 'users'
+      });
+    }
+  }
+  Position.init({
+    positionid: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    PositionName: {
+      type: DataTypes.STRING,
+      allowNull: false, 
+      validate: {
+        len: [1, 50]
+      }
+    },
+    Status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
+    }
+  }, {
+    sequelize,
+    modelName: 'Position',
+    tableName: 'Positions',
+    timestamps: false,
+  });
+  return Position;
+};
