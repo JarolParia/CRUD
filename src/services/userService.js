@@ -1,10 +1,13 @@
 const {User} = require('../models');
+const { hashPassword } = require('../utils/bcryptHelper');
+
 
 
 //createUser function
 const createUser = async (data) => {
     try {
-        const user = await User.create(data);
+        const hashedPassword = await hashPassword(data.password);
+        const user = User.Create ({...data,password: hashedPassword});
         return user;
     }catch (error) {
         throw new Error('Error creating user:' + error.message);
@@ -39,6 +42,10 @@ const updateUser = async (id, data) => {
         const user = await User.findByPk(id);
         if (!user) {
             throw new Error('User not found');
+        }
+
+        if (updateUser.Password){
+            updateUser.Password = await hashPassword(data.Password);
         }
         await user.update(data);
         return user;
