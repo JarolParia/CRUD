@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(50),
       allowNull: false,
     },
-    lastName: {
+    lastname: {
       type: DataTypes.STRING(50),
       allowNull: false,
     },
@@ -47,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(10),
       allowNull: true,
       validate: {
-        is: /^[0-9]+$/i
+        is: /^\d+$/i
       }
     },
     positionId: {
