@@ -6,7 +6,7 @@ const createUser = async (data) => {
     try {
         const user = await User.create(data);
         return user;
-    }catch (errot) {
+    }catch (error) {
         throw new Error('Error creating user:' + error.message);
     }
 };
