@@ -13,7 +13,7 @@ const getAllPositions = async (req, res) => {
 const createPosition = async (req,res) =>{
     try {
 
-        if (!req.body.PositionName) {
+        if (!req.body.positionName) {
             return res.status(400).json({ message: 'PositionName is required' });
         }
 

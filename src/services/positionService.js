@@ -26,7 +26,10 @@ const getPositionById = async (id) => {
 // createPosition function
 const createPosition = async (data) => {
     try {
-        const position = await Position.create({ PositionName: data.PositionName });
+        const position = await Position.create({ 
+            positionName: data.positionName, // <- Usa el nombre exacto del modelo
+            status: data.status || true     // Campo opcional con valor por defecto
+        });
         return position;
     } catch (error) {
         throw new Error('Error creating position: ' + error.message);
