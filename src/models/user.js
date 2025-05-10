@@ -18,15 +18,15 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    FirstName: { 
+    firstName: { 
       type: DataTypes.STRING(50),
       allowNull: false,
     },
-    Lastname: {
+    lastname: {
       type: DataTypes.STRING(50),
       allowNull: false,
     },
-    Email: {
+    email: {
       type: DataTypes.STRING(100),
       allowNull: false,
       unique: true,
@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
         isEmail: true
       }
     },
-    Age: {      
+    age: {      
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
@@ -43,14 +43,14 @@ module.exports = (sequelize, DataTypes) => {
         max: 80
       }
     },
-    Phone: {      
+    phone: {      
       type: DataTypes.STRING(10),
       allowNull: true,
       validate: {
         is: /^[0-9]+$/i
       }
     },
-    PositionId: {
+    positionId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -58,7 +58,7 @@ module.exports = (sequelize, DataTypes) => {
         key: "positionid"
       }
     },
-    Password: {
+    password: {
       type: DataTypes.STRING(255),  // Usamos 255 para almacenar contraseñas cifradas.
       allowNull: false,
       validate: {

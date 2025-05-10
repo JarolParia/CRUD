@@ -13,19 +13,19 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Position.init({
-    positionid: {
+    positionId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
-    PositionName: {
+    positionName: {
       type: DataTypes.STRING,
       allowNull: false, 
       validate: {
         len: [1, 50]
       }
     },
-    Status: {
+    status: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true
