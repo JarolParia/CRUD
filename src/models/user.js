@@ -1,13 +1,15 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-
     static associate(models) {
+
+      const { Position } = models;
+
       User.belongsTo(Position, {
-        foreignKey: 'PositionId',
+        foreignKey: 'positionId',
         as: 'position'
       });
     }
@@ -22,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(50),
       allowNull: false,
     },
-    lastname: {
+    lastName: {
       type: DataTypes.STRING(50),
       allowNull: false,
     },
@@ -47,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(10),
       allowNull: true,
       validate: {
-        is: /^\d+$/i
+        is: /^\d{10}$/
       }
     },
     positionId: {
@@ -55,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       references: {
         model: "Position",
-        key: "positionid"
+        key: "positionId"
       }
     },
     password: {
