@@ -44,8 +44,8 @@ const updateUser = async (id, data) => {
             throw new Error('User not found');
         }
 
-        if (updateUser.Password){
-            updateUser.Password = await hashPassword(data.Password);
+        if (data.Password){
+            data.Password = await hashPassword(data.Password);
         }
         await user.update(data);
         return user;
