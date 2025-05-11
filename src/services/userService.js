@@ -37,15 +37,15 @@ const getUserById = async (id) => {
 };
 
 
-const updateUser = async (id, data) => {
+const updateUserService = async (id, data) => {
     try {
         const user = await User.findByPk(id);
         if (!user) {
             throw new Error('User not found');
         }
 
-        if (updateUser.Password){
-            updateUser.Password = await hashPassword(data.Password);
+        if (data.Password){
+            data.Password = await hashPassword(data.Password);
         }
         await user.update(data);
         return user;
@@ -71,6 +71,6 @@ module.exports = {
     createUser,
     getallUsers,
     getUserById,
-    updateUser,
+    updateUserService,
     deleteUser 
 };

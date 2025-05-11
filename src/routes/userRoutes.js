@@ -7,5 +7,6 @@ const validateUser = require('../middlewares/userMiddlewares'); // Importación 
 router.get('/', userController.getAllUsers);
 router.get('/:id', userController.getUserById);
 router.post('/create', validateUser, userController.createUser);
+router.put('/:id', userController.updateUser);
 
 module.exports = router;
