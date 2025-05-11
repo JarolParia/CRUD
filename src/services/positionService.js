@@ -1,4 +1,4 @@
-const{Position} = require('../models');
+const { sequelize, Position, User } = require('../models');
 
 // get all positions
 const getallPositions = async () => {
@@ -52,17 +52,34 @@ const updatePosition = async (id, data) => {
 
 // deletePosition function
 const deletePosition = async (id) => {
+    const transaction = await sequelize.transaction();
     try {
-        const position = await Position.findByPk(id);
+        // Verificar si existe la posición
+        const position = await Position.findByPk(id, { transaction });
         if (!position) {
             throw new Error('Position not found');
         }
-        await position.destroy();
-        return position;
+
+        // Verificar si hay usuarios asociados
+        const usersCount = await User.count({ 
+            where: { PositionId: id },
+            transaction
+        });
+
+        if (usersCount > 0) {
+            throw new Error('Cannot delete position with associated users');
+        }
+
+        // Eliminar la posición
+        await position.destroy({ transaction });
+        await transaction.commit();
+        
+        return { success: true, message: 'Position deleted successfully' };
     } catch (error) {
-        throw new Error('Error deleting position: ' + error.message);
+        await transaction.rollback();
+        throw error;
     }
-}
+};
 
 module.exports = {
     getallPositions,
