@@ -1,6 +1,17 @@
 const userService = require('../services/userService');
 const { User } = require('../models');
 
+// Controller function to get all positions
+const getAllUsers = async (req, res) => {
+    try {
+        const users = await userService.getallUsers();
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
 const createUser = async (req,res) =>{
     try {
         const newUser =await userService.createUser(req.body);
@@ -44,5 +55,6 @@ const deleteUser = async (req, res) => {
 module.exports = {
     createUser,
     getUserById,
-    deleteUser
+    deleteUser,
+    getAllUsers
 };
