@@ -1,4 +1,5 @@
 const userService = require('../services/userService');
+const { User } = require('../models');
 
 // Controller function to get all positions
 const getAllUsers = async (req, res) => {
