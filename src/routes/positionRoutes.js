@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const positionController = require('../controllers/positionController');
-const validatePosition = require('../middlewares/PositionMiddelwares'); // Importación corregida
+const validatePosition = require('../middlewares/PositionMiddelwares'); 
 
 
 router.get('/', positionController.getAllPositions);

@@ -1,6 +1,5 @@
 const positionService = require('../services/positionService');
 
-// Controller function to get all positions
 const getAllPositions = async (req, res) => {
     try {
         const positions = await positionService.getallPositions();
@@ -48,7 +47,6 @@ const deletePositionHandler = async (req, res) => {
         });
     }
 };
-
 
 const updatePosition = async (req,res) =>{
     try {
