@@ -4,8 +4,10 @@ const router = express.Router();
 const positionController = require('../controllers/positionController');
 const validatePosition = require('../middlewares/PositionMiddelwares'); // Importación corregida
 
+
 router.get('/', positionController.getAllPositions);
 router.get('/:id', positionController.getPositionById);
 router.post('/create', validatePosition, positionController.createPosition);
+router.delete('/delete/:id', positionController.deletePositionHandler);
 
 module.exports = router;

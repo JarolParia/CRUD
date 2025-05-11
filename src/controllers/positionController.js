@@ -36,8 +36,23 @@ const getPositionById = async (req,res) =>{
     }
 };
 
+const deletePositionHandler = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const result = await positionService.deletePosition(id);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(400).json({ 
+            success: false,
+            error: error.message 
+        });
+    }
+};
+
+
 module.exports = {
     createPosition,
     getPositionById,
-    getAllPositions
+    getAllPositions,
+    deletePositionHandler
 };
