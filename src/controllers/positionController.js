@@ -36,7 +36,6 @@ const getPositionById = async (req,res) =>{
     }
 };
 
-
 module.exports = {
     createPosition,
     getPositionById,
