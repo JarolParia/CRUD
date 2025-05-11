@@ -11,7 +11,6 @@ const getAllUsers = async (req, res) => {
     }
 };
 
-
 const createUser = async (req,res) =>{
     try {
         const newUser =await userService.createUser(req.body);
@@ -42,7 +41,7 @@ const updateUser = async (req, res) => {
             return res.status(400).json({ error: 'User ID is required' });
         }
 
-        await userService.updateUserService(id, updateData);
+        await userService.updateUser(id, updateData);
 
         return res.status(200).json({ message: 'User updated successfully' });
         
@@ -60,28 +59,41 @@ const updateUser = async (req, res) => {
     }
 };
 
-const deleteUser = async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const user = await User.findByPk(id);
-
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+const userDelete = async (req, res) => {
+    try {
+        const { id } = req.params; // Obtener el ID de los parámetros de la URL
+        
+        // Llamar al servicio deleteUser
+        const deletedUser = await userService.deleteUser(id);
+        
+        // Responder con el usuario eliminado
+        res.status(200).json({
+            success: true,
+            message: 'User deleted successfully',
+            data: deletedUser
+        });
+        
+    } catch (error) {
+        // Manejar diferentes tipos de errores
+        if (error.message.includes('User not found')) {
+            return res.status(404).json({
+                success: false,
+                message: error.message
+            });
+        }
+        
+        // Error general del servidor
+        res.status(500).json({
+            success: false,
+            message: error.message || 'Internal server error while deleting user'
+        });
     }
-
-    await user.destroy();
-    return res.status(200).json({ message: 'User successfully deleted' });
-  } catch (error) {
-    return res.status(500).json({ message: 'Error deleting user', error: error.message });
-  }
 };
-
 
 module.exports = {
     createUser,
     getUserById,
-    deleteUser,
     getAllUsers,
-    updateUser
+    updateUser,
+    userDelete
 };
