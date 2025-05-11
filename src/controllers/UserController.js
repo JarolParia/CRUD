@@ -33,6 +33,32 @@ const getUserById = async (req,res) =>{
     }
 };
 
+const updateUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const updateData = req.body;
+
+        if (!id) {
+            return res.status(400).json({ error: 'User ID is required' });
+        }
+
+        await userService.updateUserService(id, updateData);
+
+        return res.status(200).json({ message: 'User updated successfully' });
+        
+    } catch (error) {
+        console.error('Error in updateUser controller:', error.message);
+        
+        if (error.message.includes('User not found')) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        
+        return res.status(500).json({ 
+            error: 'Internal server error', 
+            details: error.message 
+        });
+    }
+};
 
 const deleteUser = async (req, res) => {
   const { id } = req.params;
@@ -56,5 +82,6 @@ module.exports = {
     createUser,
     getUserById,
     deleteUser,
-    getAllUsers
+    getAllUsers,
+    updateUser
 };
