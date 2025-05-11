@@ -43,6 +43,16 @@ const updatePosition = async (id, data) => {
         if (!position) {
             throw new Error('Position not found');
         }
+
+        if (data.positionName) {
+            const existingPosition = await Position.findOne({ 
+                where: { positionName: data.positionName } 
+            });
+            if (existingPosition && existingPosition.id !== parseInt(id)) {
+                throw new Error('Position name already exists');
+            }
+        }
+
         await position.update(data);
         return position;
     } catch (error) {
