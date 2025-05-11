@@ -10,7 +10,6 @@ const getAllUsers = async (req, res) => {
     }
 };
 
-
 const createUser = async (req,res) =>{
     try {
         const newUser =await userService.createUser(req.body);
@@ -31,7 +30,6 @@ const getUserById = async (req,res) =>{
         res.status(500).json({ message: error.message });
     }
 };
-
 
 module.exports = {
     createUser,

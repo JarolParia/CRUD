@@ -2,9 +2,9 @@ const Joi = require('joi');
 
 const positionSchema = Joi.object({
   positionName: Joi.string().min(1).max(50).required().messages({
-    'string.empty': 'El nombre del puesto es obligatorio',
-    'string.min': 'El nombre debe tener al menos 1 carácter',
-    'string.max': 'El nombre no puede exceder 50 caracteres'
+    'string.empty': 'The name of the position is required',
+    'string.min': 'The name of the position must be at least 1 character',
+    'string.max': 'The name cannot exceed 50 characters'
   }),
   status: Joi.boolean().default(true)
 });
@@ -17,8 +17,8 @@ const validatePosition = (req, res, next) => {
       details: error.details.map(d => d.message)
     });
   }
-  req.validatedData = value; // Datos validados se pasan al controlador
-  next(); // Continúa hacia el controlador
+  req.validatedData = value; 
+  next(); 
 };
 
 module.exports = validatePosition;
