@@ -9,5 +9,6 @@ router.get('/', positionController.getAllPositions);
 router.get('/:id', positionController.getPositionById);
 router.post('/create', validatePosition, positionController.createPosition);
 router.delete('/delete/:id', positionController.deletePositionHandler);
+router.put('/:id', positionController.updatePosition);
 
 module.exports = router;
