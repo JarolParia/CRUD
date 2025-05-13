@@ -3,6 +3,7 @@ const { Sequelize } = require('sequelize');  // Asegúrate de importar Sequelize
 const dbconfig = require('./config/config');
 const positionRoutes = require('./routes/positionRoutes'); // Asegúrate de que la ruta sea correcta
 const userRoutes = require('./routes/userRoutes'); // Asegúrate de que la ruta sea correcta
+const cors= require('cors');
 
 // Crea una nueva instancia de Sequelize utilizando la configuración
 const sequelize = new Sequelize(
@@ -20,6 +21,12 @@ const port =8080;
 
 
 app.use(express.json());
+app.use(cors());
+
+app.use(cors({
+  origin: 'http://localhost:3000', // Solo permite requests desde React
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+}));
 
 app.use('/api/positions', positionRoutes);
 app.use('/api/users', userRoutes);
