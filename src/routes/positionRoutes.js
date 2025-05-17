@@ -8,7 +8,7 @@ const validatePosition = require('../middlewares/PositionMiddelwares');
 router.get('/', positionController.getAllPositions);
 router.get('/:id', positionController.getPositionById);
 router.post('/', validatePosition, positionController.createPosition);
-router.delete('/delete/:id', positionController.deletePositionHandler);
+router.delete('/:id', positionController.deletePositionHandler);
 router.put('/:id', positionController.updatePosition);
 
 module.exports = router;
