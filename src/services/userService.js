@@ -37,7 +37,7 @@ const getUserById = async (id) => {
 };
 
 
-const updateUserService = async (id, data) => {
+const updateUser = async (id, data) => {
     try {
         const user = await User.findByPk(id);
         if (!user) {
@@ -71,6 +71,6 @@ module.exports = {
     createUser,
     getallUsers,
     getUserById,
-    updateUserService,
+    updateUser,
     deleteUser 
 };

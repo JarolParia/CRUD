@@ -41,7 +41,7 @@ const updateUser = async (req, res) => {
             return res.status(400).json({ error: 'User ID is required' });
         }
 
-        await userService.updateUserService(id, updateData);
+        await userService.updateUser(id, updateData);
 
         return res.status(200).json({ message: 'User updated successfully' });
         

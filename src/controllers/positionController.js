@@ -51,13 +51,17 @@ const deletePositionHandler = async (req, res) => {
 const updatePosition = async (req,res) =>{
     try {
         const { id } = req.params; 
-        const { positionName } = req.body;
+        const { positionName, status } = req.body;
 
-        if (!positionName) {
-            return res.status(400).json({ message: 'positionName is required' });
+        if (!positionName && status === undefined) {
+            return res.status(400).json({ message: 'At least one field (positionName or status) is required' });
         }
+        
+        const updateData = {};
+        if (positionName) updateData.positionName = positionName;
+        if (status !== undefined) updateData.status = status;
 
-        const updatedPosition = await positionService.updatePosition(id, { positionName });
+        const updatedPosition = await positionService.updatePosition(id, updateData);
         
         res.status(200).json(updatedPosition);
     } catch (error) {
