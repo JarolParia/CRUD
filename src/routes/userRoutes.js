@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/UserController');
-const validateUser = require('../Validations/AuthValidation');
+const validateUser = require('../Validations/userValidations'); // Fixed import path
 const { authenticateToken, requireAdmin, requireAdminOrSupervisor, requireSelfOrAdmin } = require('../middlewares/AuthMiddlewares');
 
 // Rutas protegidas - requieren autenticación

@@ -1,6 +1,6 @@
 const { User, Position } = require('../models');
 const { comparePassword } = require('../utils/bcryptHelper');
-const { generateToken } = require('../utils/jwtHelper');
+const { generateToken } = require('../utils/HelperJwt');
 
 // Servicio de login
 const loginUser = async (email, password) => {
