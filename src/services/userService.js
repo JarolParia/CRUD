@@ -14,9 +14,14 @@ const createUser = async (data) => {
     }
 };
 
-const getallUsers = async () => {
+const getallUsers = async (limit,offset) => {
     try {
-        const users = await User.findAll({ include: ['position'] });
+        const users = await User.findAndCountAll({ 
+            
+            include: ['position'],
+            limit,
+            offset
+        });
         return users;
     }catch (error) {
         throw new Error('Error fetching users:' + error.message);

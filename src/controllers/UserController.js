@@ -3,9 +3,19 @@ const { User } = require('../models');
 
 // Controller function to get all positions
 const getAllUsers = async (req, res) => {
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt (req.query.limit) || 10;
+    const offset = (page - 1) * limit;
+
     try {
-        const users = await userService.getallUsers();
-        res.status(200).json(users);
+        const { count, rows } = await userService.getallUsers(limit, offset);
+        res.status(200).json({
+            totalItems: count,
+            totalPages: Math.ceil(count / limit),
+            currentPage: page,
+            users: rows
+        });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
