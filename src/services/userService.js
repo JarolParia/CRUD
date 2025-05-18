@@ -17,7 +17,6 @@ const createUser = async (data) => {
 const getallUsers = async (limit,offset) => {
     try {
         const users = await User.findAndCountAll({ 
-            
             include: ['position'],
             limit,
             offset

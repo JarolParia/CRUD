@@ -1,9 +1,32 @@
 const positionService = require('../services/positionService');
 
 const getAllPositions = async (req, res) => {
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = (page - 1) * limit; 
+
     try {
-        const positions = await positionService.getallPositions();
-        res.status(200).json(positions);
+        const { count, rows } = await positionService.getallPositions(limit,offset);
+        res.status(200).json({
+            totalItems: count,
+            totalPages: Math.ceil(count / limit),
+            currentPage: page,
+            positions: rows
+        });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
+const getAllPositionsAll = async (req, res) => {
+    try {
+        const positions = await positionService.getallPositionsAll();
+        res.status(200).json({
+            success:true,
+            data: positions
+        });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -78,5 +101,6 @@ module.exports = {
     getPositionById,
     getAllPositions,
     deletePositionHandler,
-    updatePosition
+    updatePosition,
+    getAllPositionsAll
 };

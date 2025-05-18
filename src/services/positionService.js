@@ -1,9 +1,25 @@
 const { sequelize, Position, User } = require('../models');
 
 // get all positions
-const getallPositions = async () => {
+const getallPositions = async (limit,offset) => {
     try {
-        const positions = await Position.findAll();
+        const positions = await Position.findAndCountAll({
+            limit,
+            offset
+        });
+        return positions;
+    }catch (error) {
+        throw new Error('Error fetching positions:' + error.message);
+    }
+};
+
+// get all positions
+const getallPositionsAll = async () => {
+    try {
+        const positions = await Position.findAll({
+            where: {status: true},
+            attributes: ['positionId', 'positionName','status'],
+        });
         return positions;
     }catch (error) {
         throw new Error('Error fetching positions:' + error.message);
@@ -96,5 +112,6 @@ module.exports = {
     getPositionById,
     createPosition,
     updatePosition,
-    deletePosition
+    deletePosition,
+    getallPositionsAll
 };

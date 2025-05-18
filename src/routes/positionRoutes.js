@@ -6,8 +6,9 @@ const validatePosition = require('../middlewares/PositionMiddelwares');
 
 
 router.get('/', positionController.getAllPositions);
-router.get('/:id', positionController.getPositionById);
+router.get('/All', positionController.getAllPositionsAll);
 router.post('/', validatePosition, positionController.createPosition);
+router.get('/:id', positionController.getPositionById);
 router.delete('/:id', positionController.deletePositionHandler);
 router.put('/:id', positionController.updatePosition);
 
