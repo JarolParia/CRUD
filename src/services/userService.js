@@ -1,8 +1,6 @@
 const {User} = require('../models');
 const { hashPassword } = require('../utils/bcryptHelper');
 
-
-
 //createUser function
 const createUser = async (data) => {
     try {
