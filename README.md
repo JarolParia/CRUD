@@ -1,82 +1,232 @@
-# User CRUD - Backend
+# 🚀 User CRUD - Backend
 
-Este es el backend del sistema CRUD de usuarios y posiciones desarrollado como parte del proyecto de Ingeniería de Software II.
+![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)
+![MySQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)
+![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
 
-👉 Repositorio del frontend: [User CRUD Frontend](https://github.com/SamKarsa/user-crud-frontend.git)
+API REST para gestión de usuarios y posiciones desarrollada como parte del proyecto de Ingeniería de Software II. Este sistema implementa un CRUD completo con autenticación basada en roles.
 
-## 🚀 Descripción
-
-El sistema permite gestionar usuarios y sus posiciones. Está protegido mediante autenticación con JWT y solo usuarios con el rol de **admin** o **supervisor** pueden acceder.
+👉 **Repositorio del frontend:** [User CRUD Frontend](https://github.com/SamKarsa/user-crud-frontend.git)
 
 ---
 
-## 🔐 Funcionalidades principales
+## 📋 Tabla de Contenidos
 
-- Login con validación de roles.
-- CRUD completo para usuarios y posiciones.
-- Validaciones de entrada con Joi.
-- Hash de contraseñas con bcryptjs.
-- Seguridad con tokens JWT.
-- Middleware de autorización por rol.
+- [Descripción](#-descripción)
+- [Funcionalidades Principales](#-funcionalidades-principales)
+- [Tecnologías y Dependencias](#-tecnologías-y-dependencias)
+- [Estructura del Proyecto](#-estructura-del-proyecto)
+- [Instalación](#-instalación)
+- [API Endpoints](#-api-endpoints)
+- [Seguridad](#-seguridad)
+- [Autores](#-autores)
 
---- 
+---
 
-## 🧰 Tecnologías y dependencias
+## 📝 Descripción
 
-- Node.js
-- Express
-- Sequelize (ORM)
-- MySQL
-- bcryptjs
-- cors
-- dotenv
-- joi
-- jsonwebtoken
+El sistema permite gestionar usuarios y sus posiciones laborales con control de acceso basado en roles. Solo usuarios autenticados con roles de **admin** o **supervisor** pueden acceder a las funcionalidades del sistema según sus permisos.
+
+---
+
+## 🔐 Funcionalidades Principales
+
+- **Autenticación y Autorización**
+  - Login con validación de roles (admin/supervisor)
+  - Protección de rutas con JWT
+  - Middleware de verificación por rol
+
+- **Gestión de Usuarios**
+  - Creación de usuarios con contraseñas seguras
+  - Consulta, actualización y eliminación de usuarios
+  - Validación de datos de entrada
+
+- **Gestión de Posiciones**
+  - CRUD completo para posiciones laborales
+  - Validación de datos de entrada
+  - Control de estado activo/inactivo
+
+- **Seguridad**
+  - Hash de contraseñas con bcryptjs
+  - Protección contra inyección SQL con ORM
+  - Validaciones con Joi
+  - Tokens JWT para autenticación
+
+---
+
+## 🧰 Tecnologías y Dependencias
+
+### Backend
+- **Node.js** - Entorno de ejecución
+- **Express** - Framework web
+- **Sequelize** - ORM para bases de datos
+- **MySQL** - Base de datos relacional
+
+### Seguridad
+- **bcryptjs** - Hash de contraseñas
+- **jsonwebtoken** - Generación y validación de tokens JWT
+
+### Utilidades
+- **cors** - Manejo de CORS
+- **dotenv** - Variables de entorno
+- **joi** - Validación de datos
+
+---
+
+## 📂 Estructura del Proyecto
+
+```
+CRUD_BACKEND/
+├── node_modules/
+├── src/
+│   ├── config/
+│   │   └── config.js              # Configuración de la base de datos
+│   ├── controllers/
+│   │   ├── AuthController.js      # Controlador de autenticación
+│   │   ├── positionController.js  # Controlador de posiciones
+│   │   └── UserController.js      # Controlador de usuarios
+│   ├── middlewares/
+│   │   └── AuthMiddlewares.js     # Middlewares de autenticación y autorización
+│   ├── migrations/
+│   │   └── 20250510175338-create-position-table.js  # Migraciones de la DB
+│   ├── models/
+│   │   ├── index.js               # Configuración de modelos
+│   │   ├── position.js            # Modelo de Posición
+│   │   └── user.js                # Modelo de Usuario
+│   ├── routes/
+│   │   ├── authRoutes.js          # Rutas de autenticación
+│   │   ├── positionRoutes.js      # Rutas de posiciones
+│   │   └── userRoutes.js          # Rutas de usuarios
+│   ├── services/
+│   │   ├── authService.js         # Servicios de autenticación
+│   │   ├── positionService.js     # Servicios de posiciones
+│   │   └── userService.js         # Servicios de usuarios
+│   ├── utils/
+│   │   ├── bcryptHelper.js        # Utilidades para encriptación
+│   │   └── HelperJwt.js           # Utilidades para JWT
+│   └── Validations/
+│       ├── AuthValidation.js      # Validaciones de autenticación
+│       ├── PositionValidations.js # Validaciones de posiciones
+│       └── userValidations.js     # Validaciones de usuarios
+├── app.js                         # Configuración de la aplicación Express
+├── server.js                      # Punto de entrada de la aplicación
+├── .env                           # Variables de entorno
+├── .gitignore                     # Archivos ignorados por git
+├── .sequelizerc                   # Configuración de Sequelize CLI
+├── package-lock.json              # Dependencias específicas
+├── package.json                   # Dependencias y scripts
+└── README.md                      # Este archivo
+```
 
 ---
 
 ## 📦 Instalación
 
-1. Clona el repositorio:
+### Requisitos Previos
+- Node.js (v14 o superior)
+- MySQL (v5.7 o superior)
+
+### Pasos
+
+1. **Clonar el repositorio:**
 
 ```bash
-https://github.com/JarolParia/CRUD.git
+git clone https://github.com/JarolParia/CRUD.git
+cd CRUD
 ```
 
-2. Navega al proyecto y descarga las dependencias:
+2. **Instalar dependencias:**
 
 ```bash
-cd user-crud-backend
 npm install
 ```
 
-3. Crea un archivo .env con la configuración:
+3. **Configurar variables de entorno:**
+
+Crea un archivo `.env` en la raíz del proyecto con la siguiente configuración:
 
 ```bash
 PORT=8080
 DB_PORT=3306
-DB_NAME=nombre de tu base de datos
-DB_USER=tu usuario
-DB_PASS=tu contraseña
+DB_NAME=nombre_de_tu_base_de_datos
+DB_USER=tu_usuario
+DB_PASS=tu_contraseña
 DB_DIALECT=mysql
 DB_HOST=localhost
 JWT_SECRET=9d7!A#s2$P0x1Tz&kLmN4@rQ8^vYwZbC
 JWT_EXPIRES_IN=1h
 ```
 
-4. Corre las migraciones y sincroniza la base de datos, agrega esto a la consola:
+4. **Inicializar la base de datos:**
 
 ```bash
 npx sequelize-cli db:migrate
 ```
 
-5. Ejecuta la aplicación en desarrollo:
+5. **Iniciar el servidor:**
 
 ```bash
+# Modo desarrollo
+npm run dev
+
+# Modo producción
 npm start
 ```
 
-Ya con esto, tu backend esta corriendo correctamente. 
+El servidor estará disponible en `http://localhost:8080`.
+
+---
+
+## 🔗 API Endpoints
+
+### Autenticación
+
+| Método | Endpoint | Descripción | Roles |
+|--------|----------|-------------|-------|
+| POST | `/api/auth/login` | Iniciar sesión | Público |
+| GET | `/api/auth/validate` | Validar token JWT | Público |
+| POST | `/api/auth/logout` | Cerrar sesión | Autenticado |
+
+### Usuarios
+
+| Método | Endpoint | Descripción | Roles |
+|--------|----------|-------------|-------|
+| GET | `/api/users` | Obtener todos los usuarios (paginado) | Admin, Supervisor |
+| GET | `/api/users/:id` | Obtener usuario por ID | Admin, Dueño del recurso |
+| POST | `/api/users` | Crear nuevo usuario | Admin |
+| PUT | `/api/users/:id` | Actualizar usuario | Admin, Dueño del recurso |
+| DELETE | `/api/users/:id` | Eliminar usuario | Admin |
+
+### Posiciones
+
+| Método | Endpoint | Descripción | Roles |
+|--------|----------|-------------|-------|
+| GET | `/api/positions` | Obtener todas las posiciones (paginado) | Admin, Supervisor |
+| GET | `/api/positions/All` | Obtener todas las posiciones activas | Admin, Supervisor |
+| GET | `/api/positions/:id` | Obtener posición por ID | Admin, Supervisor |
+| POST | `/api/positions` | Crear nueva posición | Admin |
+| PUT | `/api/positions/:id` | Actualizar posición | Admin, Supervisor |
+| DELETE | `/api/positions/:id` | Eliminar posición | Admin |
+
+### Otros
+
+| Método | Endpoint | Descripción | Roles |
+|--------|----------|-------------|-------|
+| GET | `/api/health` | Verificar estado del servidor | Público |
+
+---
+
+## 🔒 Seguridad
+
+El sistema implementa las siguientes medidas de seguridad:
+
+- **Autenticación**: JWT (JSON Web Tokens) para verificar la identidad del usuario.
+- **Autorización**: Control de acceso basado en roles.
+- **Contraseñas**: Hash con bcryptjs (10 rondas de salt).
+- **Validación**: Validación de entrada con Joi para prevenir inyecciones y datos malformados.
+- **Sesiones**: Tiempo de expiración de tokens configurable.
 
 ---
 
@@ -86,4 +236,4 @@ Ya con esto, tu backend esta corriendo correctamente.
 - [**Jarol Stiben Paria Ramírez**](https://github.com/JarolParia)
 - [**Karen Daniela Garzón Morales**](https://github.com/Karencita777)
 
-Todos los desarrolladores participaron activamente en el diseño y desarrollo del **frontend** y **backend** del sistema User CRUD
+Todos los desarrolladores participaron activamente en el diseño y desarrollo del **frontend** y **backend** del sistema User CRUD.
