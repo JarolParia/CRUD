@@ -193,9 +193,9 @@ El servidor estará disponible en `http://localhost:8080`.
 | Método | Endpoint | Descripción | Roles |
 |--------|----------|-------------|-------|
 | GET | `/api/users` | Obtener todos los usuarios (paginado) | Admin, Supervisor |
-| GET | `/api/users/:id` | Obtener usuario por ID | Admin, Dueño del recurso |
+| GET | `/api/users/:id` | Obtener usuario por ID | Admin |
 | POST | `/api/users` | Crear nuevo usuario | Admin |
-| PUT | `/api/users/:id` | Actualizar usuario | Admin, Dueño del recurso |
+| PUT | `/api/users/:id` | Actualizar usuario | Admin |
 | DELETE | `/api/users/:id` | Eliminar usuario | Admin |
 
 ### Posiciones
