@@ -36,7 +36,6 @@ El sistema permite gestionar usuarios y sus posiciones laborales con control de 
 - **Autenticación y Autorización**
   - Login con validación de roles (admin/supervisor)
   - Protección de rutas con JWT
-  - Middleware de verificación por rol
 
 - **Gestión de Usuarios**
   - Creación de usuarios con contraseñas seguras
