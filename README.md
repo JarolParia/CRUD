@@ -132,7 +132,7 @@ CRUD_BACKEND/
 1. **Clonar el repositorio:**
 
 ```bash
-git clone https://github.com/JarolParia/CRUD.git
+git clone https://github.com/JarolParia/user-crud-backend.git
 cd CRUD
 ```
 
@@ -184,12 +184,15 @@ INSERT INTO positions(positionId, positionName) VALUES (1, "Admin"), (2, "Superv
 INSERT INTO users(id, firstName, lastName, email, age, positionId, password) 
 VALUES (1, "admin", "admin", "admin@gmail.com", 20, 1, "$2b$10$Eryl4S6V6mIae/SL5JXmB.QUhZR1kLdqieWlWRll7cHueCJApi.Ba");
 ```
-| ***Credenciales por defecto:***
-| El sistema incluye un usuario administrador preconfigurado:
-| 
-| Email: admin@gmail.com
-| Contraseña: 123456789
-| (La contraseña está hasheada en la base de datos con bcrypt)
+
+> 💡 **Credenciales por defecto:**
+>
+> El sistema incluye un usuario administrador preconfigurado:
+>
+> **Email:** `admin@gmail.com`  
+> **Contraseña:** `123456789`  
+> _(La contraseña está hasheada en la base de datos con bcrypt)_
+
 
 5. **Iniciar el servidor:**
 
