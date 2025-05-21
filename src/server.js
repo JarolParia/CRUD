@@ -1,4 +1,4 @@
-const { app, sequelize } = require('./app');  // Aquí importas correctamente la app y sequelize
+const { app, sequelize } = require('./app');  // Import configured app and sequelize instance
 
 const PORT = 8080;
 app.listen(PORT, () => {

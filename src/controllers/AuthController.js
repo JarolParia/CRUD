@@ -1,11 +1,12 @@
+//Importing the authentication service
 const authService = require('../services/authService');
 
-// Controller para login
+//Controller to LogIn a user
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Validar que se proporcionen email y password
+        //Validate that e-mail and password have been provided
         if (!email || !password) {
             return res.status(400).json({
                 success: false,
@@ -13,10 +14,10 @@ const login = async (req, res) => {
             });
         }
 
-        // Realizar login
+        //Authenticates the user and generates token
         const userWithToken = await authService.loginUser(email, password);
 
-        // Respuesta exitosa
+        //Returns a successful response with user and token data
         res.status(200).json({
             success: true,
             message: 'Login successful',
@@ -24,7 +25,7 @@ const login = async (req, res) => {
         });
 
     } catch (error) {
-        // Manejo de errores específicos
+        //Incorrect credentials
         if (error.message.includes('Invalid credentials')) {
             return res.status(401).json({
                 success: false,
@@ -32,6 +33,7 @@ const login = async (req, res) => {
             });
         }
 
+        //Disabled role or position
         if (error.message.includes('Position is inactive')) {
             return res.status(403).json({
                 success: false,
@@ -39,7 +41,7 @@ const login = async (req, res) => {
             });
         }
 
-        // Error general
+        //Unexpected server error 
         res.status(500).json({
             success: false,
             message: 'Internal server error during login',
@@ -48,11 +50,12 @@ const login = async (req, res) => {
     }
 };
 
-// Controller para validar token
+//Controller to validate the authentication token
 const validateToken = async (req, res) => {
     try {
         const authHeader = req.headers.authorization;
         
+        //Verify that the authorization header exists and is in valid format
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
             return res.status(401).json({
                 success: false,
@@ -60,9 +63,11 @@ const validateToken = async (req, res) => {
             });
         }
 
+        //Extracts the token and validates it
         const token = authHeader.substring(7);
         const decoded = await authService.validateToken(token);
 
+        //Returns response with decoded token information
         res.status(200).json({
             success: true,
             message: 'Token is valid',
@@ -70,6 +75,7 @@ const validateToken = async (req, res) => {
         });
 
     } catch (error) {
+        //Invalid or expired token
         res.status(401).json({
             success: false,
             message: 'Invalid token',
@@ -78,7 +84,7 @@ const validateToken = async (req, res) => {
     }
 };
 
-// Controller para logout
+//Logout Controller
 const logout = async (req, res) => {
     res.status(200).json({
         success: true,
@@ -86,6 +92,7 @@ const logout = async (req, res) => {
     });
 };
 
+//Export of controllers
 module.exports = {
     login,
     validateToken,

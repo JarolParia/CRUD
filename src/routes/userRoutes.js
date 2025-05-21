@@ -1,8 +1,8 @@
-const express = require('express');
-const router = express.Router();
-const userController = require('../controllers/UserController');
+const express = require('express'); //Import Express framework
+const router = express.Router(); //Create Express router instance
+const userController = require('../controllers/UserController'); //Import user controller
 const validateUser = require('../Validations/userValidations'); // Fixed import path
-const { authenticateToken, requireAdmin, requireAdminOrSupervisor, requireSelfOrAdmin } = require('../middlewares/AuthMiddlewares');
+const { authenticateToken, requireAdmin, requireAdminOrSupervisor, requireSelfOrAdmin } = require('../middlewares/AuthMiddlewares'); //Import authentication middleware
 
 // Rutas protegidas - requieren autenticación
 router.get('/', authenticateToken, requireAdminOrSupervisor, userController.getAllUsers);
@@ -11,4 +11,5 @@ router.post('/', authenticateToken, requireAdmin, validateUser, userController.c
 router.put('/:id', authenticateToken, requireSelfOrAdmin, userController.updateUser); // Usuario puede actualizar sus propios datos
 router.delete('/:id', authenticateToken, requireAdmin, userController.userDelete); // Solo admins pueden eliminar
 
+// Export configured router
 module.exports = router;
