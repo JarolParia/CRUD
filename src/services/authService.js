@@ -1,11 +1,11 @@
 const { User, Position } = require('../models');
 const { comparePassword } = require('../utils/bcryptHelper');
-const { generateToken } = require('../utils/HelperJwt');
+const { generateToken, verifyToken } = require('../utils/HelperJwt');
 
 // Servicio de login
 const loginUser = async (email, password) => {
     try {
-        // Buscar usuario con su posición incluida
+        // Find user with associated position data
         const user = await User.findOne({
             where: { email },
             include: [
@@ -16,26 +16,27 @@ const loginUser = async (email, password) => {
                 }
             ],
             attributes: {
-                exclude: ['createdAt', 'updatedAt']
+                exclude: ['createdAt', 'updatedAt'] //Exclude sensitive/unnecessary fields
             }
         });
 
+        // Validate user exists
         if (!user) {
             throw new Error('Invalid credentials');
         }
 
-        // Verificar si la posición está activa
+        // Check if user's position is active
         if (!user.position.status) {
             throw new Error('Position is inactive');
         }
 
-        // Verificar contraseña
+        // Verify password matches hashed version
         const isValidPassword = await comparePassword(password, user.password);
         if (!isValidPassword) {
             throw new Error('Invalid credentials');
         }
 
-        // Crear payload para el token
+        // Prepare token payload (contains essential user data)
         const tokenPayload = {
             id: user.id,
             email: user.email,
@@ -47,7 +48,7 @@ const loginUser = async (email, password) => {
             }
         };
 
-        // Generar token
+        // Generate JWT with 1 hour expiration
         const token = generateToken(tokenPayload);
 
         // Retornar usuario sin la contraseña y con el token
@@ -62,6 +63,7 @@ const loginUser = async (email, password) => {
             token
         };
 
+        // Return sanitized user data with token
         return userResponse;
 
     } catch (error) {
@@ -72,10 +74,9 @@ const loginUser = async (email, password) => {
 // Servicio para validar token y obtener usuario
 const validateToken = async (token) => {
     try {
-        const { verifyToken } = require('../utils/jwtHelper');
         const decoded = verifyToken(token);
         
-        // Opcional: verificar que el usuario aún existe en la base de datos
+        // Verify user still exists in database
         const user = await User.findByPk(decoded.id, {
             include: [
                 {
@@ -86,6 +87,7 @@ const validateToken = async (token) => {
             ]
         });
 
+        // Check user and position status
         if (!user || !user.position.status) {
             throw new Error('User not found or position inactive');
         }

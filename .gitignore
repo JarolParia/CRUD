@@ -1,3 +1,20 @@
 .env
 
 /node_modules
+
+# Jest y coverage
+/node_modules
+/coverage
+.jest_cache
+*.log
+
+# Dependencias y builds
+/dist
+/.vscode
+/.idea
+
+# Variables de entorno
+.env
+.env.local
+.env.development
+.env.test

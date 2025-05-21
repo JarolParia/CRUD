@@ -1,11 +1,10 @@
-const {User} = require('../models');
-const { hashPassword } = require('../utils/bcryptHelper');
-
-
+const {User} = require('../models'); //Import user model
+const { hashPassword } = require('../utils/bcryptHelper'); //Import password hashing utility
 
 //createUser function
 const createUser = async (data) => {
     try {
+        // Hash password before storing
         const hashedPassword = await hashPassword(data.password);
         const user = User.create({...data,password: hashedPassword});
         return user;
@@ -16,6 +15,7 @@ const createUser = async (data) => {
 
 const getallUsers = async (limit,offset) => {
     try {
+        // Create user with hashed password
         const users = await User.findAndCountAll({ 
             include: ['position'],
             limit,
@@ -30,7 +30,7 @@ const getallUsers = async (limit,offset) => {
 
 const getUserById = async (id) => {
     try {
-        const user = await User.findByPk(id, { include: ['position'] });
+        const user = await User.findByPk(id, { include: ['position'] }); // Eager load position data
         if (!user) {
             throw new Error('User not found');
         }

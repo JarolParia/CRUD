@@ -1,4 +1,4 @@
-const { sequelize, Position, User } = require('../models');
+const { sequelize, Position, User } = require('../models'); //Import database models and sequelize instance
 
 // get all positions
 const getallPositions = async (limit,offset) => {
@@ -17,8 +17,8 @@ const getallPositions = async (limit,offset) => {
 const getallPositionsAll = async () => {
     try {
         const positions = await Position.findAll({
-            where: {status: true},
-            attributes: ['positionId', 'positionName','status'],
+            where: {status: true}, //Only active positions
+            attributes: ['positionId', 'positionName','status'], // Selected fields
         });
         return positions;
     }catch (error) {
@@ -43,8 +43,8 @@ const getPositionById = async (id) => {
 const createPosition = async (data) => {
     try {
         const position = await Position.create({ 
-            positionName: data.positionName, // <- Usa el nombre exacto del modelo
-            status: data.status || true     // Campo opcional con valor por defecto
+            positionName: data.positionName, 
+            status: data.status || true     
         });
         return position;
     } catch (error) {
@@ -80,13 +80,13 @@ const updatePosition = async (id, data) => {
 const deletePosition = async (id) => {
     const transaction = await sequelize.transaction();
     try {
-        // Verificar si existe la posición
+        
         const position = await Position.findByPk(id, { transaction });
         if (!position) {
             throw new Error('Position not found');
         }
 
-        // Verificar si hay usuarios asociados
+        
         const usersCount = await User.count({ 
             where: { PositionId: id },
             transaction
@@ -96,13 +96,13 @@ const deletePosition = async (id) => {
             throw new Error('Cannot delete position with associated users');
         }
 
-        // Eliminar la posición
+        
         await position.destroy({ transaction });
-        await transaction.commit();
+        await transaction.commit(); // Commit transaction if successful
         
         return { success: true, message: 'Position deleted successfully' };
     } catch (error) {
-        await transaction.rollback();
+        await transaction.rollback(); // Rollback on error
         throw error;
     }
 };

@@ -18,22 +18,23 @@ const sequelize = new Sequelize(
 );
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8080; //Default to 8080 if PORT not specified
 
-app.use(express.json());
-app.use(cors());
+app.use(express.json()); // For parsing application/json
+app.use(cors()); // For parsing form data
 
+// CORS Configuration
 app.use(cors({
-  origin: 'http://localhost:3000', // Solo permite requests desde React
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+  origin: 'http://localhost:3000', // Whitelisted frontend
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
 }));
 
-// Rutas
-app.use('/api/auth', authRoutes); // Rutas de autenticación (públicas)
-app.use('/api/positions', positionRoutes); // Rutas protegidas
-app.use('/api/users', userRoutes); // Rutas protegidas
+// Route Configuration
+app.use('/api/auth', authRoutes); // Authentication routes (login, register, etc.)
+app.use('/api/positions', positionRoutes); // Position management routes
+app.use('/api/users', userRoutes); // User management routes
 
-// Ruta de prueba pública
+
 app.get('/api/health', (req, res) => {
   res.status(200).json({ 
     success: true, 
@@ -42,4 +43,5 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Export app and sequelize for testing and server startup
 module.exports = { app, sequelize };
