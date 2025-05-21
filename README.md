@@ -154,15 +154,42 @@ DB_USER=tu_usuario
 DB_PASS=tu_contraseña
 DB_DIALECT=mysql
 DB_HOST=localhost
-JWT_SECRET=9d7!A#s2$P0x1Tz&kLmN4@rQ8^vYwZbC
+JWT_SECRET=9d7!A#s2$P0x1Tz&kLmN4@rQ8^vYwZbC # Puedes cambiarla por cualquier cadena segura
 JWT_EXPIRES_IN=1h
 ```
+⚠️ **Nota sobre JWT_SECRET**: La clave secreta proporcionada es solo un ejemplo. Para entornos de producción, se recomienda generar una clave secreta única y compleja.
 
-4. **Inicializar la base de datos:**
+4. **Crear la base de datos:**
+
+Antes de ejecutar las migraciones, necesitas crear la base de datos manualmente en MySQL:
+
+```bash
+CREATE DATABASE nombre_de_tu_base_de_datos;
+```
+
+5. **Inicializar la base de datos:**
 
 ```bash
 npx sequelize-cli db:migrate
 ```
+
+6. **Insertar datos iniciales:**
+Ejecuta los siguientes comandos en tu cliente MySQL para crear los roles y usuario admin inicial:
+
+```bash
+USE nombre_de_tu_base_de_datos;
+
+INSERT INTO positions(positionId, positionName) VALUES (1, "Admin"), (2, "Supervisor");
+
+INSERT INTO users(id, firstName, lastName, email, age, positionId, password) 
+VALUES (1, "admin", "admin", "admin@gmail.com", 20, 1, "$2b$10$Eryl4S6V6mIae/SL5JXmB.QUhZR1kLdqieWlWRll7cHueCJApi.Ba");
+```
+| ***Credenciales por defecto:***
+| El sistema incluye un usuario administrador preconfigurado:
+| 
+| Email: admin@gmail.com
+| Contraseña: 123456789
+| (La contraseña está hasheada en la base de datos con bcrypt)
 
 5. **Iniciar el servidor:**
 
