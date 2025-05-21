@@ -1,6 +1,6 @@
-const { User, Position } = require('../models'); // Import database models
-const { comparePassword } = require('../utils/bcryptHelper'); //Password comparison utility
-const { generateToken } = require('../utils/HelperJwt'); //JWT generation utility
+const { User, Position } = require('../models');
+const { comparePassword } = require('../utils/bcryptHelper');
+const { generateToken, verifyToken } = require('../utils/HelperJwt');
 
 // Servicio de login
 const loginUser = async (email, password) => {
@@ -74,9 +74,6 @@ const loginUser = async (email, password) => {
 // Servicio para validar token y obtener usuario
 const validateToken = async (token) => {
     try {
-        const { verifyToken } = require('../utils/jwtHelper');
-        
-        // Verify token signature and expiration
         const decoded = verifyToken(token);
         
         // Verify user still exists in database

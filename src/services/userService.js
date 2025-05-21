@@ -1,8 +1,6 @@
 const {User} = require('../models'); //Import user model
 const { hashPassword } = require('../utils/bcryptHelper'); //Import password hashing utility
 
-
-
 //createUser function
 const createUser = async (data) => {
     try {
